@@ -1,7 +1,7 @@
 from django.http import HttpResponse
 from django.shortcuts import redirect,render
 from tasks.models import TodoItem
-from tasks.forms import AddTaskForm,TodoItemForm
+from tasks.forms import AddTaskForm, TodoItemExportForm, TodoItemForm
 from django.views import View
 from django.views.generic import ListView
 from django.urls import reverse
@@ -10,10 +10,12 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib import messages
 from django.db.models import Q
+from django.core.mail import send_mail
+from django.conf import settings
 
 @login_required
 def index(request):
-    return HttpResponse("Примитивный ответ из приложения tasks")
+    return HttpResponse("Простой ответ из приложения")
 
 def complete_task(request, uid):
 	t = TodoItem.objects.get(id=uid)
